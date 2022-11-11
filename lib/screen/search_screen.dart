@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:weather_project/screen/home_screen.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
@@ -10,6 +11,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+  final cityNameController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -20,6 +23,9 @@ class _SearchScreenState extends State<SearchScreen> {
               margin: EdgeInsets.only(top: 10),
               child: Row(
                 children: [
+                  SizedBox(
+                    width: 10,
+                  ),
                   GestureDetector(
                     onTap: () => Navigator.pop(context),
                     child: Icon(
@@ -47,6 +53,8 @@ class _SearchScreenState extends State<SearchScreen> {
               ),
             ),
             TextField(
+              controller: cityNameController,
+              style: TextStyle(color: Colors.white),
               decoration: InputDecoration(
                 prefixIcon: Icon(
                   Icons.search,
@@ -58,7 +66,18 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 border: InputBorder.none,
               ),
-            )
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HomeScreen(cityNameController.text),
+                  ),
+                );
+              },
+              child: Text('Search'),
+            ),
           ],
         ),
         backgroundColor: Color(0xff2E335A),

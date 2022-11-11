@@ -7,13 +7,15 @@ import 'package:weather_project/service/location.dart';
 import '../service/weather_helper.dart';
 
 class HomeScreen extends StatefulWidget {
+  HomeScreen(this.cityNameSearch);
+  String cityNameSearch = '';
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  double temp = 0.0;
   String cityName = '';
-  late double temp;
   @override
   void initState() {
     var locationManager = LocationHelper();
@@ -23,11 +25,14 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Future<void> getWeather() async {
-    var networkHelper = NetworkHelper();
+    var networkHelper = NetworkHelper(widget.cityNameSearch);
     var data = await networkHelper.getData();
-
-    cityName = jsonDecode(data)['name'];
-    temp = jsonDecode(data)['main']['temp'];
+    if (data != 'Error') {
+      cityName = jsonDecode(data)['name'];
+      temp = jsonDecode(data)['main']['temp'];
+    } else {
+      cityName = "Error";
+    }
   }
 
   @override
@@ -91,7 +96,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Container(
                     margin: EdgeInsets.only(top: 10),
                     child: Image.asset('images/house.png'),
-                  )
+                  ),
                 ],
               ),
             )
