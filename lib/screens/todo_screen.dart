@@ -82,7 +82,7 @@ class TodoScreen extends StatelessWidget {
                     backgroundColor: Colors.white,
                     child: Icon(
                       Icons.list,
-                      size: 40,
+                      size: 30,
                       color: Colors.lightBlueAccent,
                     ),
                   ),
