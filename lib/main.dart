@@ -1,25 +1,29 @@
-import 'package:chatapp/model/task_data.dart';
-import 'package:chatapp/screens/todo_screen.dart';
-import 'package:firebase_core/firebase_core.dart';
+import 'package:chatapp/screens/product_detail_screen.dart';
+import 'package:chatapp/screens/product_overview_screen.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
-Future<void> main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+import 'model/product.dart';
+
+void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => TaskData(),
-      child: MaterialApp(
-        home: TodoScreen(),
+    return MaterialApp(
+      routes: {
+        ProductOverviewScreen.route: (context) => ProductOverviewScreen(),
+        ProductDetailScreen.route: (context) =>
+            ProductDetailScreen(Product('', '', '', 0, '', false)),
+      },
+      title: 'Flutter Demo',
+      theme: ThemeData(
+        primarySwatch: Colors.purple,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+        fontFamily: 'Lato',
       ),
+      home: ProductOverviewScreen(),
     );
   }
 }
