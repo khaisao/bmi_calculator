@@ -6,6 +6,11 @@ class TaskData extends ChangeNotifier {
     Task('buy milk', false),
     Task('buy chocolate', true),
     Task('buy abc', false),
+    Task('buy abc', false),
+    Task('buy abc', false),
+    Task('buy abc', false),
+    Task('buy abc', false),
+    Task('buy abc', false),
   ];
 
   void addTask(Task taskInput) {
@@ -16,8 +21,9 @@ class TaskData extends ChangeNotifier {
   void toggleTask(Task taskInput) {
     var index = tasks.indexOf(taskInput);
     print(index);
-
+    // tasks.removeAt(index);
     taskInput.isDone = !taskInput.isDone;
-    tasks.replaceRange(index, index + 1, [taskInput]);
+    notifyListeners();
+    // tasks.replaceRange(index, index + 1, [taskInput]);
   }
 }
