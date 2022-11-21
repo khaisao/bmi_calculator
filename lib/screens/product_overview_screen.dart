@@ -1,49 +1,49 @@
-import 'package:chatapp/widgets/product_item.dart';
+import 'package:chatapp/widgets/products_grid.dart';
 import 'package:flutter/material.dart';
 
-import '../model/product.dart';
+enum FilterOption { Favorites, All }
 
-class ProductOverviewScreen extends StatelessWidget {
+class ProductOverviewScreen extends StatefulWidget {
   static final String route = 'product_overview_screen';
-  List<Product> loaderProduct = [
-    Product(
-        'p1',
-        'Red Shirt',
-        'A red shirt - it is pretty red!',
-        29.99,
-        'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-        false),
-    Product(
-        'p1',
-        'Red Shirt',
-        'A red shirt - it is pretty red!',
-        29.99,
-        'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-        false),
-    Product(
-        'p1',
-        'Red Shirt',
-        'A red shirt - it is pretty red!',
-        29.99,
-        'https://cdn.pixabay.com/photo/2016/10/02/22/17/red-t-shirt-1710578_1280.jpg',
-        false),
-  ];
 
+  @override
+  State<ProductOverviewScreen> createState() => _ProductOverviewScreenState();
+}
+
+class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
+  var _showOnlyFavorites = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('MyShop'),
+        actions: [
+          PopupMenuButton(
+            onSelected: (value) {
+              print(value);
+              // if(value==)
+              setState(() {
+                if (value == FilterOption.Favorites) {
+                  _showOnlyFavorites = true;
+                } else {
+                  _showOnlyFavorites = false;
+                }
+              });
+            },
+            itemBuilder: (_) => [
+              PopupMenuItem(
+                child: Text('Only favorites'),
+                value: FilterOption.Favorites,
+              ),
+              PopupMenuItem(
+                child: Text('Show all'),
+                value: FilterOption.All,
+              ),
+            ],
+          )
+        ],
       ),
-      body: GridView.builder(
-        itemCount: loaderProduct.length,
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, crossAxisSpacing: 20, mainAxisSpacing: 10),
-        itemBuilder: (context, index) {
-          return ProductItem(loaderProduct[index]);
-        },
-        padding: EdgeInsets.all(10),
-      ),
+      body: ProductsGrid(_showOnlyFavorites),
     );
   }
 }
