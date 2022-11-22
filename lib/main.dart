@@ -1,3 +1,4 @@
+import 'package:chatapp/provider/cart.dart';
 import 'package:chatapp/provider/products.dart';
 import 'package:chatapp/screens/product_detail_screen.dart';
 import 'package:chatapp/screens/product_overview_screen.dart';
@@ -11,8 +12,15 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (BuildContext context) => Products(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => Products(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => Cart(),
+        )
+      ],
       child: MaterialApp(
         routes: {
           ProductOverviewScreen.route: (context) => ProductOverviewScreen(),

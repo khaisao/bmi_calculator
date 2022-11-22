@@ -1,3 +1,4 @@
+import 'package:chatapp/widgets/badge.dart';
 import 'package:chatapp/widgets/products_grid.dart';
 import 'package:flutter/material.dart';
 
@@ -40,7 +41,9 @@ class _ProductOverviewScreenState extends State<ProductOverviewScreen> {
                 value: FilterOption.All,
               ),
             ],
-          )
+          ),
+          Badge(IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart)),
+              2.toString(), Colors.redAccent),
         ],
       ),
       body: ProductsGrid(_showOnlyFavorites),
